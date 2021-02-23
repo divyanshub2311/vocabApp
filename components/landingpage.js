@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default function Landingpage() {
+export default function Landingpage({history}) {
 
 
     return (
@@ -11,7 +11,7 @@ export default function Landingpage() {
             <Text style={styles.text1}>Vocabulary Builder</Text>
             <View style={styles.getstarted}>
                 <View>
-                    <Button title="Get Started" />
+                    <Button title="Get Started" onPress = {()=>{history.push("/Levels")}}/>
                 </View>
                 <View style={styles.signin}>
                     <Button title="Sign In" />
