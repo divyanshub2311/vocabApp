@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Landingpage from './components/landingpage';
 
 export default function App() {
 
 
   return (
     <View style={styles.container}>
-      <Text>Vocab Mad Easy</Text>
-      <StatusBar style="auto" />
+      <Landingpage />
     </View>
   );
 }
