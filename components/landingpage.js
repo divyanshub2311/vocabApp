@@ -11,7 +11,7 @@ export default function Landingpage({history}) {
             <Text style={styles.text1}>Vocabulary Builder</Text>
             <View style={styles.getstarted}>
                 <View>
-                    <Button title="Get Started" onPress = {()=>{history.push("/Levels")}}/>
+                    <Button title="Get Started" onPress = {()=>{history.push("/AllLevels")}}/>
                 </View>
                 <View style={styles.signin}>
                     <Button title="Sign In" />

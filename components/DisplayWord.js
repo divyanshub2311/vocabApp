@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Levels({ history }) {
 
@@ -24,7 +25,12 @@ export default function Levels({ history }) {
   }
   return (
     <View style={styles.container}>
-      <Button title="back" onPress={() => { history.push("/") }}></Button>
+      {/* <Icon.Button
+                    name="menu-sharp"
+                    backgroundColor="#3b5998"
+                    onPress={() => { history.push("/") }}>
+                </Icon.Button> */}
+      <Button title="Return to Home Page" onPress={() => { history.push("/") }}></Button>
       {
         list.map((a) => {
           return (
