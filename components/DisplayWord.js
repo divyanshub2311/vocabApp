@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
+import { globalStyles } from '../styles/global'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function DisplayWord({ history }) {
@@ -24,12 +25,13 @@ export default function DisplayWord({ history }) {
     setShow(false)
   }
   return (
-    <View style={styles.container}>
-      {/* <Icon.Button
-                    name="menu-sharp"
-                    backgroundColor="#3b5998"
-                    onPress={() => { history.push("/") }}>
-                </Icon.Button> */}
+    <View style={globalStyles.container}>
+      <Icon.Button
+        name="menu-sharp"
+        backgroundColor="#fff"
+        color="#000"
+        onPress={() => { history.push("/") }}>
+      </Icon.Button>
       <Button title="Return to Home Page" onPress={() => { history.push("/") }}></Button>
       {
         list.map((a) => {

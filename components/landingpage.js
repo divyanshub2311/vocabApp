@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Header } from 'react-native';
+import { globalStyles } from '../styles/global'
 
 export default function Landingpage({ history }) {
 
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Vocab Mad Easy</Text>
-            <Text style={styles.text1}>Vocabulary Builder</Text>
-            <View style={styles.getstarted}>
-                <View>
+
+        <View style={globalStyles.container}>
+            <View style={styles.cont}>
+                <Text style={styles.text}>Vocab Mad Easy</Text>
+                <Text style={styles.text1}>Vocabulary Builder</Text>
+                <View style={styles.landButton}>
                     <Button title="Get Started" onPress={() => { history.push("/AllLevels") }} />
-                    {console.log("Get Started")}
                 </View>
-                <View style={styles.signin}>
+                {console.log("Get Started")}
+                <View style={styles.sign}>
                     <Button title="Sign In" />
                 </View>
             </View>
@@ -23,32 +25,32 @@ export default function Landingpage({ history }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        margin: 0,
-        padding: 0,
-        flex: 3,
-        backgroundColor: '#fff',
+    cont: {
+
         alignItems: 'center',
-        justifyContent: 'center',
-        borderTopWidth: 1,
-    },
-    text: {
-        fontSize: 40,
-        fontWeight: 'bold',
-        marginBottom: 10
-    },
-    text1: {
-        fontSize: 25,
-        color: "grey"
+        marginTop: 250
 
     },
-    getstarted: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        marginTop: 30
+    text: {
+
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: "black",
+
+
     },
-    signin: {
-        marginTop: 200,
+    text1: {
+
+        fontSize: 25,
+        color: "grey",
+        marginBottom: 20
+
+    },
+
+    landButton: {
+
+    },
+    sign: {
+        marginTop: 250
     }
 });
