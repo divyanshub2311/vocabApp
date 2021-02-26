@@ -7,23 +7,28 @@ export const globalStyles = StyleSheet.create({
 
     container: {
         flex: 1,
-        top: 15,
-        backgroundColor: "#fff",
+
+        backgroundColor: "#5f9ea0",
 
 
     },
     head: {
-        height: 70,
 
-        width: win.width,
+        elevation: 4,
+        borderBottomColor: "#a7a7aa",
+        shadowColor: "#a7a7aa",
+        top: 15,
+        height: 72.6,
+        // width: win.width,
         alignItems: 'center',
-
-        backgroundColor: 'black',
-        // backgroundColor: "#5f9ea0",
+        backgroundColor: 'white',
         flexDirection: 'row',
-
-
-
-
+        marginBottom: 15
+        // borderBottomWidth: 2
+    },
+    headerText: {
+        color: 'black',
+        fontSize: 20
     }
+
 })

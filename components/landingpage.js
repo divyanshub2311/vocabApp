@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, StyleSheet, Text, View, Header } from 'react-native';
 import { globalStyles } from '../styles/global'
 
-export default function Landingpage({ history }) {
+export default function Landingpage({ navigation }) {
 
 
     return (
@@ -13,7 +13,7 @@ export default function Landingpage({ history }) {
                 <Text style={styles.text}>Vocab Mad Easy</Text>
                 <Text style={styles.text1}>Vocabulary Builder</Text>
                 <View style={styles.landButton}>
-                    <Button title="Get Started" onPress={() => { history.push("/AllLevels") }} />
+                    <Button title="Get Started" onPress={() => { navigation.navigate('AllLevels') }} />
                 </View>
                 {console.log("Get Started")}
                 <View style={styles.sign}>

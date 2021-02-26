@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
 import { globalStyles } from '../styles/global'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { NavigationEvents } from 'react-navigation';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function DisplayWord({ history }) {
+export default function DisplayWord({ navigation }) {
 
 
   const [current, setCurrent] = useState(1);
@@ -26,31 +28,48 @@ export default function DisplayWord({ history }) {
   }
   return (
     <View style={globalStyles.container}>
-      <Icon.Button
-        name="menu-sharp"
-        backgroundColor="#fff"
-        color="#000"
-        onPress={() => { history.push("/") }}>
-      </Icon.Button>
-      <Button title="Return to Home Page" onPress={() => { history.push("/") }}></Button>
+
+
+      <View style={globalStyles.head}>
+        <Icon.Button
+          name="menu-sharp"
+          backgroundColor="white"
+          color="#000"
+          onPress={() => { navigation.navigate('AllLevels') }}>
+        </Icon.Button>
+
+        <Text style={globalStyles.headerText}> Level {navigation.getParam('levelProp')}</Text>
+
+
+
+      </View>
       {
         list.map((a) => {
           return (
-            <View>
+            <View >
               {a.key === current ?
 
-                <View>
-                  <Text> Word {a.word}</Text>
+                <View style={styles.display}>
+                  <Text style={styles.optionWord}> {a.word}</Text>
                   {show ?
-                    <View>
-                      <Button onPress={touch} title={a.mean}></Button>
-                      <Button onPress={touch} title={a.option1}></Button>
-                      <Button onPress={touch} title={a.option2}></Button>
-                      <Button onPress={touch} title={a.option3}></Button>
+                    <View >
+                      <TouchableOpacity style={styles.options} onPress={touch}>
+                        <Text style={styles.option}>{a.mean}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.options}>
+                        <Text style={styles.option}>{a.option1}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.options}>
+                        <Text style={styles.option}>{a.option2}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.options} >
+                        <Text style={styles.option}>{a.option3}</Text>
+                      </TouchableOpacity>
+
                     </View> :
                     <View>
-                      <Text> Meaning {a.mean}</Text>
-                      <Text>Explanation {a.exp}</Text>
+                      <Text style={styles.options}> Meaning {a.mean}</Text>
+                      <Text style={styles.options}>Explanation {a.exp}</Text>
                       <Button title="Next" onPress={goNext}></Button>
                     </View>}</View> : <Text></Text>
 
@@ -64,10 +83,25 @@ export default function DisplayWord({ history }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  display: {
+    margin: 10,
+    backgroundColor: "white",
+
   },
+  options: {
+    borderTopWidth: 1,
+    borderColor: 'lightgrey',
+    padding: 25,
+    fontSize: 20
+  },
+  option: {
+    fontSize: 20
+  },
+  optionWord: {
+    alignSelf: 'center',
+    padding: 25,
+    fontWeight: 'bold',
+    fontSize: 30
+  }
+
 });
