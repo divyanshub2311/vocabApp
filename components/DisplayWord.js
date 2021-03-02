@@ -5,7 +5,7 @@ import { globalStyles } from '../styles/global'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import axios from 'axios';
+// import axios from 'axios';
 
 export default function DisplayWord({ navigation }) {
 
@@ -17,9 +17,9 @@ export default function DisplayWord({ navigation }) {
     { key: 2, word: 'pellucid', mean: 'clear', option1: 'a', option2: 'b', option3: 'c', exp: 'e' }
   ])
 
-  useEffect(() => {
-    axios.get('http://10.0.2.2:5000/words').then(function (resp) { console.log(resp.data) }).catch((e) => { console.log(e) })
-  })
+  // useEffect(() => {
+  //   axios.get('http://10.0.2.2:5000/words').then(function (resp) { console.log(resp.data) }).catch((e) => { console.log(e) })
+  // })
   const goNext = () => {
     console.log("goNext called")
 
@@ -28,7 +28,37 @@ export default function DisplayWord({ navigation }) {
   }
 
   const touch = () => {
+
     setShow(false)
+  }
+
+
+  const Shuffle = (obj) => {
+
+    let arr = []
+
+    arr.push(obj.obj.option1, obj.obj.mean, obj.obj.option2, obj.obj.option3);
+    var i,
+      j,
+      temp;
+    for (i = arr.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+
+
+
+
+    return (arr.map((m) => {
+      return (
+
+        <TouchableOpacity style={styles.options} onPress={touch}>
+          <Text style={styles.option}>{m}</Text>
+        </TouchableOpacity>)
+    }))
+
   }
   return (
     <View style={globalStyles.container}>
@@ -56,21 +86,23 @@ export default function DisplayWord({ navigation }) {
                 <View style={styles.display}>
                   <Text style={styles.optionWord}> {a.word}</Text>
                   {show ?
-                    <View >
-                      <TouchableOpacity style={styles.options} onPress={touch}>
-                        <Text style={styles.option}>{a.mean}</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.options}>
-                        <Text style={styles.option}>{a.option1}</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.options}>
-                        <Text style={styles.option}>{a.option2}</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.options} >
-                        <Text style={styles.option}>{a.option3}</Text>
-                      </TouchableOpacity>
+                    <Shuffle obj={a} />
+                    // <View >
+                    //   <TouchableOpacity style={styles.options} onPress={touch}>
+                    //     <Text style={styles.option}>{a.mean}</Text>
+                    //   </TouchableOpacity>
+                    //   <TouchableOpacity style={styles.options}>
+                    //     <Text style={styles.option}>{a.option1}</Text>
+                    //   </TouchableOpacity>
+                    //   <TouchableOpacity style={styles.options}>
+                    //     <Text style={styles.option}>{a.option2}</Text>
+                    //   </TouchableOpacity>
+                    //   <TouchableOpacity style={styles.options} >
+                    //     <Text style={styles.option}>{a.option3}</Text>
+                    //   </TouchableOpacity>
 
-                    </View> :
+                    // </View>
+                    :
                     <View>
                       <Text style={styles.options}> Meaning {a.mean}</Text>
                       <Text style={styles.options}>Explanation {a.exp}</Text>
