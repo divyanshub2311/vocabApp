@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
 import { globalStyles } from '../styles/global'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 export default function DisplayWord({ navigation }) {
 
@@ -16,6 +17,9 @@ export default function DisplayWord({ navigation }) {
     { key: 2, word: 'pellucid', mean: 'clear', option1: 'a', option2: 'b', option3: 'c', exp: 'e' }
   ])
 
+  useEffect(() => {
+    axios.get('http://10.0.2.2:5000/words').then(function (resp) { console.log(resp.data) }).catch((e) => { console.log(e) })
+  })
   const goNext = () => {
     console.log("goNext called")
 
