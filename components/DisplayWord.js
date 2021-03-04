@@ -5,30 +5,32 @@ import { globalStyles } from '../styles/global'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import axios from 'axios';
+import axios from 'axios';
 
 export default function DisplayWord({ navigation }) {
 
-
+  const [anscheck, setAnscheck] = useState("incorrect");
+  const [meaning, setMeaning] = useState("");
   const [current, setCurrent] = useState(1);
   const [show, setShow] = useState(true)
-  const [list, setList] = useState([
-    { key: 1, word: 'peevish', mean: 'cranky', option1: 'a', option2: 'b', option3: 'c', exp: 'e' },
-    { key: 2, word: 'pellucid', mean: 'clear', option1: 'a', option2: 'b', option3: 'c', exp: 'e' }
-  ])
+  const [list, setList] = useState([])
 
-  // useEffect(() => {
-  //   axios.get('http://10.0.2.2:5000/words').then(function (resp) { console.log(resp.data) }).catch((e) => { console.log(e) })
-  // })
+  useEffect(() => {
+    axios.get('https://vocabapp-backend.herokuapp.com/words').then(function (resp) { setList(resp.data) }).catch((e) => { console.log(e) })
+  })
   const goNext = () => {
     console.log("goNext called")
-
+    setAnscheck("incorrect")
     setCurrent(current + 1)
     setShow(true)
+
   }
 
-  const touch = () => {
-
+  const touch = (ans) => {
+    console.log(ans)
+    if (ans == meaning) {
+      setAnscheck("Correct")
+    }
     setShow(false)
   }
 
@@ -36,7 +38,7 @@ export default function DisplayWord({ navigation }) {
   const Shuffle = (obj) => {
 
     let arr = []
-
+    setMeaning(obj.obj.mean)
     arr.push(obj.obj.option1, obj.obj.mean, obj.obj.option2, obj.obj.option3);
     var i,
       j,
@@ -54,7 +56,7 @@ export default function DisplayWord({ navigation }) {
     return (arr.map((m) => {
       return (
 
-        <TouchableOpacity style={styles.options} onPress={touch}>
+        <TouchableOpacity style={styles.options} onPress={() => { touch(m) }} >
           <Text style={styles.option}>{m}</Text>
         </TouchableOpacity>)
     }))
@@ -87,25 +89,11 @@ export default function DisplayWord({ navigation }) {
                   <Text style={styles.optionWord}> {a.word}</Text>
                   {show ?
                     <Shuffle obj={a} />
-                    // <View >
-                    //   <TouchableOpacity style={styles.options} onPress={touch}>
-                    //     <Text style={styles.option}>{a.mean}</Text>
-                    //   </TouchableOpacity>
-                    //   <TouchableOpacity style={styles.options}>
-                    //     <Text style={styles.option}>{a.option1}</Text>
-                    //   </TouchableOpacity>
-                    //   <TouchableOpacity style={styles.options}>
-                    //     <Text style={styles.option}>{a.option2}</Text>
-                    //   </TouchableOpacity>
-                    //   <TouchableOpacity style={styles.options} >
-                    //     <Text style={styles.option}>{a.option3}</Text>
-                    //   </TouchableOpacity>
-
-                    // </View>
                     :
                     <View>
+                      <Text style={styles.options}>{anscheck}</Text>
                       <Text style={styles.options}> Meaning {a.mean}</Text>
-                      <Text style={styles.options}>Explanation {a.exp}</Text>
+                      {/* <Text style={styles.options}>Explanation {a.exp}</Text> */}
                       <Button title="Next" onPress={goNext}></Button>
                     </View>}</View> : <Text></Text>
 
