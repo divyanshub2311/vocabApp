@@ -42,7 +42,6 @@ const screens = {
         screen: DisplayWord,
 
         navigationOptions: {
-            headerShown: false,
             title: 'Vocab Mad Easy',
 
         },

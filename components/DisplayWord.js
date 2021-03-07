@@ -15,7 +15,7 @@ export default function DisplayWord({ navigation }) {
   const [current, setCurrent] = useState(1000);
   const [show, setShow] = useState(true)
   const [list, setList] = useState([])
-
+  const [ansStyle, setAnsStyle] = useState(true)
 
   const param = navigation.getParam('levelProp') * 1000;
 
@@ -26,7 +26,6 @@ export default function DisplayWord({ navigation }) {
     }).catch((e) => { console.log(e) })
 
   }, [])
-
 
   const goNext = () => {
 
@@ -77,17 +76,17 @@ export default function DisplayWord({ navigation }) {
     <View style={globalStyles.container}>
 
 
-      <View style={globalStyles.head}>
+      <View style={styles.head}>
         <Icon.Button
-          name="menu-sharp"
-          backgroundColor="white"
-          color="#000"
-          onPress={() => { navigation.navigate('AllLevels') }}>
+          name="school-outline"
+          backgroundColor="#5f9ea0"
+        >
         </Icon.Button>
 
-        <Text style={globalStyles.headerText}> Level {navigation.getParam('levelProp')}</Text>
+        <Text style={styles.headerText}> Level {navigation.getParam('levelProp')}</Text>
 
       </View>
+
       {
         list.map((a) => {
           return (
@@ -95,12 +94,16 @@ export default function DisplayWord({ navigation }) {
             <View style={styles.hideOptions}>
               {a.key === current ?
                 <View style={styles.display}>
-                  <Text style={styles.optionWord}> {a.word}</Text>
+
                   {show ?
-                    <Shuffle obj={a} />
+                    <View>
+                      <Text style={styles.optionWord}> {a.word}</Text>
+                      <Shuffle obj={a} />
+                    </View >
                     :
                     <View>
-                      <Text style={styles.options}>{anscheck}</Text>
+                      <Text style={[styles.anstyling, anscheck === "Correct" ? { backgroundColor: "lightgreen" } : { backgroundColor: "tomato" }]}>{anscheck}</Text>
+                      <Text style={styles.optionWord}> {a.word}</Text>
                       <Text style={styles.options}> Meaning {a.mean}</Text>
                       <Text style={styles.options}>Explanation {a.exp}</Text>
                       <Button title="Next" onPress={goNext}></Button>
@@ -144,11 +147,35 @@ const styles = StyleSheet.create({
   hideOptions: {
     width: win.width,
     position: 'absolute',
-    top: 100,
+    top: 65,
     zIndex: 100
+  },
+  anstyling: {
+    width: win.width - 20,
+    borderBottomWidth: 1,
+    borderColor: 'lightgrey',
+    padding: 25,
+    fontSize: 20,
+    alignItems: 'center'
+  },
+  head: {
 
 
-
+    // elevation: 4,
+    // borderBottomColor: "#a7a7aa",
+    // shadowColor: "#a7a7aa",
+    // top: 15,
+    marginTop: 15,
+    // height: 72.6,
+    // width: win.width,
+    alignItems: 'center',
+    flexDirection: 'row',
+    // marginBottom: 5,
+    // backgroundColor: 'white',
+    // borderBottomWidth: 2
+  },
+  headerText: {
+    color: 'black',
+    fontSize: 25,
   }
-
 });
