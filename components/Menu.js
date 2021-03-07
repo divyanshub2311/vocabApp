@@ -10,19 +10,7 @@ export default function AllLevels({ navigation }) {
 
         <View style={globalStyles.container} >
 
-            {/* <View style={globalStyles.head}>
-                <Icon.Button
-                    name="menu-sharp"
-                    backgroundColor="black"
-                    color="#fff"
-                    onPress={() => { history.push("/") }}>
-                </Icon.Button>
 
-
-                <Text style={globalStyles.headerText} >Vocab Mad Easy</Text>
-
-
-            </View> */}
 
             <View style={styles.allLevel}>
                 <TouchableOpacity style={styles.column} onPress={() => { navigation.navigate('Levels', { name: "Basic" }) }}>

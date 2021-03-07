@@ -8,7 +8,8 @@ export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor: "#5f9ea0",
+        // backgroundColor: "#5f9ea0",
+        backgroundColor: "white"
 
 
     },

@@ -6,24 +6,36 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
-
+import { Dimensions } from 'react-native';
+const win = Dimensions.get('window');
 export default function DisplayWord({ navigation }) {
 
   const [anscheck, setAnscheck] = useState("incorrect");
   const [meaning, setMeaning] = useState("");
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(1000);
   const [show, setShow] = useState(true)
   const [list, setList] = useState([])
 
+
+  const param = navigation.getParam('levelProp') * 1000;
+
   useEffect(() => {
-    axios.get('https://vocabapp-backend.herokuapp.com/words').then(function (resp) { setList(resp.data) }).catch((e) => { console.log(e) })
-  })
+    setCurrent(param);
+    axios.get('https://vocabapp-backend.herokuapp.com/wordsCount/' + param).then(function (resp) {
+      setList(resp.data);
+    }).catch((e) => { console.log(e) })
+
+  }, [])
+
+
   const goNext = () => {
-    console.log("goNext called")
+
+    if (current === (list.length + param - 1)) {
+      navigation.navigate("Levels")
+    }
     setAnscheck("incorrect")
     setCurrent(current + 1)
     setShow(true)
-
   }
 
   const touch = (ans) => {
@@ -33,7 +45,6 @@ export default function DisplayWord({ navigation }) {
     }
     setShow(false)
   }
-
 
   const Shuffle = (obj) => {
 
@@ -50,9 +61,6 @@ export default function DisplayWord({ navigation }) {
       arr[j] = temp;
     }
 
-
-
-
     return (arr.map((m) => {
       return (
 
@@ -62,6 +70,9 @@ export default function DisplayWord({ navigation }) {
     }))
 
   }
+
+
+
   return (
     <View style={globalStyles.container}>
 
@@ -76,15 +87,13 @@ export default function DisplayWord({ navigation }) {
 
         <Text style={globalStyles.headerText}> Level {navigation.getParam('levelProp')}</Text>
 
-
-
       </View>
       {
         list.map((a) => {
           return (
-            <View >
-              {a.key === current ?
 
+            <View style={styles.hideOptions}>
+              {a.key === current ?
                 <View style={styles.display}>
                   <Text style={styles.optionWord}> {a.word}</Text>
                   {show ?
@@ -93,11 +102,16 @@ export default function DisplayWord({ navigation }) {
                     <View>
                       <Text style={styles.options}>{anscheck}</Text>
                       <Text style={styles.options}> Meaning {a.mean}</Text>
-                      {/* <Text style={styles.options}>Explanation {a.exp}</Text> */}
+                      <Text style={styles.options}>Explanation {a.exp}</Text>
                       <Button title="Next" onPress={goNext}></Button>
-                    </View>}</View> : <Text></Text>
-
+                    </View>
+                  }
+                </View>
+                : <Text></Text>
               }
+
+
+
             </View>
           )
         })
@@ -126,6 +140,15 @@ const styles = StyleSheet.create({
     padding: 25,
     fontWeight: 'bold',
     fontSize: 30
+  },
+  hideOptions: {
+    width: win.width,
+    position: 'absolute',
+    top: 100,
+    zIndex: 100
+
+
+
   }
 
 });
